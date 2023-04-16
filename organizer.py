@@ -1,7 +1,7 @@
 import os
 import shutil
 
-path = "PATH/TO/FOLDER"
+path = input("Add your path:")
 
 original_locations = {}
 
@@ -20,10 +20,10 @@ for file in os.listdir(path):
         os.path.join(path, file),
         os.path.join(path, file_type, file)
     )
+    print(f"Moved {file} to {os.path.join(path, file_type, file)}")
     original_locations[file] = file_type + "/" + file
 
-choice = input(
-    "Enter 1 to keep files organized or 2 to move files back to their original location: ")
+choice = input("Enter 1 to keep files organized or 2 to move files back to their original location: ")
 
 if choice == "2":
     for file, relative_path in original_locations.items():
@@ -32,4 +32,5 @@ if choice == "2":
         if os.path.exists(destination):
             os.remove(destination)
         shutil.move(original_location, destination)
+        print(f"Moved {file} back to {destination}")
     print("Files have been moved back to original directory.")
